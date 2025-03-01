@@ -84,7 +84,6 @@ void setup() {
     preferences.begin("wifi_config", false);
     preferences.clear(); // Supprime toutes les préférences enregistrées
     preferences.end();
-    Serial.println("⚠️ Mémoire flash réinitialisée ! Redémarrage...");
     delay(3000);
     ESP.restart();
 }

@@ -25,7 +25,7 @@ unsigned long lastDisplayTime = 0;
 const int DISPLAY_INTERVAL = 30000; // Affichage toutes les 30s
 const int SEND_INTERVAL = 60000;    // Envoi Firebase toutes les 60s
 
-// 📌 Vérifie si une variation dépasse le seuil
+// Vérifie si une variation dépasse le seuil
 bool hasSignificantChange(float newValue, float &lastValue, const String &variableName)
 {
     if (lastValue == -1) // Première lecture, éviter faux positifs
@@ -55,7 +55,7 @@ bool hasSignificantChange(float newValue, float &lastValue, const String &variab
     return false;
 }
 
-// 📌 Initialisation des capteurs
+// Initialisation des capteurs
 void setupSensors()
 {
     if (!aht.begin())
@@ -70,7 +70,7 @@ void setupSensors()
     pinMode(lightSensorPin, INPUT);
 }
 
-// 📌 Récupération des valeurs des capteurs
+// Récupération des valeurs des capteurs
 void readTemperatureAndHumidity(float &temperature, float &humidity)
 {
     sensors_event_t humEvent, tempEvent;
@@ -97,7 +97,7 @@ float getLightLevel()
     return constrain(map(lightLevel, 0, 4095, 0, 100), 0, 100);
 }
 
-// 📌 Vérification des capteurs et envoi des données si nécessaire
+// Vérification des capteurs et envoi des données si nécessaire
 void checkSensors()
 {
     float temp, humidity;
@@ -114,7 +114,7 @@ void checkSensors()
     shouldSend |= hasSignificantChange(moisture, lastMoisture, "Humidité du sol");
     shouldSend |= hasSignificantChange(light, lastLight, "Luminosité");
 
-    // 📌 Affichage des valeurs toutes les 30 secondes
+    // Affichage des valeurs toutes les 30 secondes
     if (millis() - lastDisplayTime > DISPLAY_INTERVAL)
     {
         Serial.println("\n📊 [Affichage] État actuel des capteurs :");
@@ -126,7 +126,7 @@ void checkSensors()
         lastDisplayTime = millis();
     }
 
-    // 📤 Envoi des données si un changement significatif est détecté ou après 60s
+    // Envoi des données si un changement significatif est détecté ou après 60s
     if (shouldSend || millis() - lastSentTime > SEND_INTERVAL)
     {
         Serial.println("\n📤 [Firebase] Envoi des nouvelles données !");
