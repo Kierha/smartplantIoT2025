@@ -2,13 +2,15 @@
 #include "pump_manager.h"
 #include "sensors.h"
 
-#define soilMoistureThreshold 30
+#define soilMoistureThreshold 10
 #define waterLevelThreshold 40
+
+const int relayPin = 7; // Définition de la broche du relais
 
 void setupPump()
 {
-    pinMode(7, OUTPUT);
-    digitalWrite(7, LOW);
+    pinMode(relayPin, OUTPUT);
+    digitalWrite(relayPin, LOW);
 }
 
 void activatePump(int duration)
@@ -16,7 +18,7 @@ void activatePump(int duration)
     Serial.printf("🚰 [Pompe] DÉMARRAGE pour %d secondes...\n", duration);
 
     // Activer réellement la pompe via le relais
-    // digitalWrite(relayPin, HIGH);
+    digitalWrite(relayPin, HIGH);
 
     for (int i = 1; i <= duration; i++)
     {
@@ -25,7 +27,7 @@ void activatePump(int duration)
     }
 
     // Désactiver la pompe après la durée définie
-    // digitalWrite(relayPin, LOW);
+    digitalWrite(relayPin, LOW);
 
     Serial.println("✅ [Pompe] FIN D'ACTIVATION.");
 }
@@ -41,9 +43,9 @@ void checkPump()
         return;
     }
 
-    if (water < 10)
+    if (water < 30)
     {
-        Serial.println("❌ [Pompe] Niveau d'eau critique (<10%), activation annulée pour éviter un pompage à sec !");
+        Serial.println("❌ [Pompe] Niveau d'eau critique (<20%), activation annulée pour éviter un pompage à sec !");
         return;
     }
 
@@ -52,7 +54,7 @@ void checkPump()
     duration = constrain(duration, 5, 15); // Sécurisation (entre 5 et 15s)
 
     // Ajustement si le niveau d’eau est bas
-    if (water < 20)
+    if (water < 60)
     {
         Serial.println("⚠️ [Pompe] Niveau d'eau bas, réduction de la durée d'activation.");
         duration = min(duration, 3);

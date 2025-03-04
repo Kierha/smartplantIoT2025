@@ -17,7 +17,7 @@ const int maxWaterLevel = 1657;
 
 // 📌 Stockage des dernières valeurs pour détecter une variation
 float lastTemp = -1, lastHumidity = -1, lastWater = -1, lastMoisture = -1, lastLight = -1;
-const float VARIATION_THRESHOLD = 5.0;
+const float VARIATION_THRESHOLD = 80.0;
 
 // 📌 Timers pour la gestion des envois et affichages
 unsigned long lastSentTime = 0;

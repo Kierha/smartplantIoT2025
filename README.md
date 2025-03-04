@@ -58,11 +58,11 @@ Le projet repose sur l'ESP32 et utilise plusieurs technologies pour assurer la c
 
   - Si l'ESP32 ne trouve pas de réseau enregistré, il crée un **point d'accès WiFi** nommé **"ESP32_Config"**.
   - Connectez-vous à ce réseau via un smartphone ou un PC.
-  - Ouvrez un navigateur et accédez à **`192.168.4.1`** pour configurer le WiFi.
+  - Ouvrez un navigateur et accédez à **`votre réseau`** pour configurer le WiFi.
   - Après configuration, l'ESP32 redémarre et se connecte automatiquement au réseau enregistré.
   - **Si besoin de réinitialiser le WiFi**, il faudra supprimer les informations stockées sur l'ESP32.
 
-- **MQTT** : Assurez-vous que votre broker MQTT tourne sur `192.168.1.X` ou en ligne.
+- **MQTT** : Assurez-vous que votre broker MQTT tourne sur `votre réseau` ou en ligne.
 
 ### **4️⃣ Utilisation du projet**
 

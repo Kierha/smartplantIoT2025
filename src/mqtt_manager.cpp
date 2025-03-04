@@ -3,7 +3,7 @@
 #include <WiFi.h>
 #include "pump_manager.h"
 
-#define MQTT_SERVER "192.168.1.17"
+#define MQTT_SERVER "192.168.15.58"
 #define MQTT_PORT 1883
 #define MQTT_TOPIC "smartplant/pompe"
 
@@ -18,7 +18,7 @@ void callbackMQTT(char *topic, byte *payload, unsigned int length)
         message += (char)payload[i];
     }
 
-    // 📌 Éviter d'afficher un message pour "0"
+    // Éviter d'afficher un message pour "0"
     if (message == "0")
     {
         return; // On sort immédiatement, évitant l'affichage et la conversion inutile
@@ -37,7 +37,7 @@ void callbackMQTT(char *topic, byte *payload, unsigned int length)
     Serial.printf("🚰 [MQTT] Activation de la pompe pour %d secondes\n", duration);
     activatePump(duration);
 
-    // 📌 Remettre le bit MQTT à 0 après activation (sans redéclencher la boucle)
+    // Remettre le bit MQTT à 0 après activation (sans redéclencher la boucle)
     client.publish(MQTT_TOPIC, "0", true);
 }
 
