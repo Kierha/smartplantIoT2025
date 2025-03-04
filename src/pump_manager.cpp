@@ -45,7 +45,7 @@ void checkPump()
 
     if (water < 30)
     {
-        Serial.println("❌ [Pompe] Niveau d'eau critique (<20%), activation annulée pour éviter un pompage à sec !");
+        Serial.println("❌ [Pompe] Niveau d'eau critique (<30%), activation annulée pour éviter un pompage à sec !");
         return;
     }
 
